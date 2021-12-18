@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 public class Employee {
@@ -29,7 +27,9 @@ public class Employee {
 	private Date dateOfJoining;
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinColumn(name = "track_id", referencedColumnName = "id")
+	@JoinColumn(name = "Training_track", referencedColumnName = "trackName")
+	// Training_track indicates the name of the coloum in the table
+	//trackname indicated the field in the other class whoes data to be displayed in the coloum
 	private TrainingTrack trainingTrack;
 
 	public int getEmpId() {

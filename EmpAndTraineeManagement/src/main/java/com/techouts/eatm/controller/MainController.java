@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techouts.eatm.Dao.EmployeeDao;
 import com.techouts.eatm.model.Employee;
 import com.techouts.eatm.model.TrainingTrack;
+import com.techouts.eatm.service.EmployeeService;
 
 @RestController
 public class MainController {
@@ -20,8 +21,11 @@ public class MainController {
 	@Autowired
 	EmployeeDao employeeDao;
 	
-	@PostMapping("/add")
-	public void addData() throws ParseException
+	@Autowired
+	EmployeeService EmployeeService;
+	
+	@PostMapping("/addEmployee")
+	public void addEmployee() throws ParseException
 	{
 		String pattern = "MM/dd/yyyy";
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
@@ -29,6 +33,24 @@ public class MainController {
 		/* new Employee(10,"balaji",date,new TrainingTrack("hybris")); */
 		
 		employeeDao.save(new Employee(10,"balaji",date,new TrainingTrack("hybris")));
+		
+	}
+	
+	@PostMapping("/removeEmployee")
+	public void removeEmployee() throws ParseException
+	{
+		
+	}
+	
+	@PostMapping("/updateEmployee")
+	public void updateEmployee() throws ParseException
+	{
+		
+	}
+	
+	@PostMapping("/getEmployees")
+	public void getEmployees() throws ParseException
+	{
 		
 	}
 

@@ -11,23 +11,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name = "employees")
 public class Employee {
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Column(unique = true)
+	@Column(name ="emp_id")
 	private int empId;
 	
+	@Column(unique = true,name = "emp_name")
 	private String empName;
 	
+	@Column(name = "date_of_joining")
 	private Date dateOfJoining;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinColumn(name = "Training_track", referencedColumnName = "trackName")
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name = "Training_track", referencedColumnName = "track_name")
 	// Training_track indicates the name of the coloum in the table
 	//trackname indicated the field in the other class whoes data to be displayed in the coloum
 	private TrainingTrack trainingTrack;

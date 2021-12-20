@@ -1,5 +1,6 @@
 package com.techouts.eatm.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -10,19 +11,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee implements Serializable {
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	@Column(name ="emp_id")
-	private int empId;
+	private long empId;
 	
 	@Column(unique = true,name = "emp_name")
 	private String empName;
@@ -31,16 +32,14 @@ public class Employee {
 	private Date dateOfJoining;
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name = "Training_track", referencedColumnName = "track_name")
-	// Training_track indicates the name of the coloum in the table
-	//trackname indicated the field in the other class whoes data to be displayed in the coloum
+	@JoinColumn(name ="track_id",referencedColumnName = "id")
 	private TrainingTrack trainingTrack;
 
-	public int getEmpId() {
+	public long getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(int empId) {
+	public void setEmpId(long empId) {
 		this.empId = empId;
 	}
 
@@ -60,6 +59,14 @@ public class Employee {
 		this.dateOfJoining = dateOfJoining;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public TrainingTrack getTrainingTrack() {
 		return trainingTrack;
 	}
@@ -68,16 +75,21 @@ public class Employee {
 		this.trainingTrack = trainingTrack;
 	}
 
-	public Employee(int empId, String empName, Date dateOfJoining, TrainingTrack trainingTrack) {
+	public Employee(int empId, String empName, Date dateOfJoining) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
 		this.dateOfJoining = dateOfJoining;
-		this.trainingTrack = trainingTrack;
 	}
 
 	public Employee() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", empId=" + empId + ", empName=" + empName + ", dateOfJoining=" + dateOfJoining
+				+ ", trainingTrack=" + trainingTrack + "]";
 	}
 	
 	

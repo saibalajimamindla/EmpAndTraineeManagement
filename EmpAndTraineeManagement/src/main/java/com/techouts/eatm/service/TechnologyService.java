@@ -31,8 +31,8 @@ public class TechnologyService {
 		Technology technology = technologyDao.findByName(tech);
 		if(technology!=null)
 		{
-			/* technologyDao.removeByName(tech); */
-			technologyDao.delete(technology);
+			 technologyDao.removeByName(tech); 
+				/* technologyDao.delete(technology); */
 		}
 	
 		

@@ -23,18 +23,18 @@ public class Technology {
 	@Column(unique = true,name = "technology_name")
 	private String TechnologyName;
 	
+	@Column(name = "technology_type")
+	private String TechnologyType;
+	
+	@Column(name = "technology_duration")
+	private long Technologyduration;
+	
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "technologies")
 	private Set<TrainingTrack> tracks = new HashSet<>();
 	
 	
-
 	public Technology() {
 		super();
-	}
-
-	public Technology(String technologyName) {
-		super();
-		TechnologyName = technologyName;
 	}
 
 	public long getId() {
@@ -61,10 +61,29 @@ public class Technology {
 		this.tracks = tracks;
 	}
 
+	public String getTechnologyType() {
+		return TechnologyType;
+	}
+
+	public void setTechnologyType(String technologyType) {
+		TechnologyType = technologyType;
+	}
+
+	public long getTechnologyduration() {
+		return Technologyduration;
+	}
+
+	public void setTechnologyduration(long technologyduration) {
+		Technologyduration = technologyduration;
+	}
+
 	@Override
 	public String toString() {
-		return "Technology [TechnologyName=" + TechnologyName + "]";
+		return "Technology [id=" + id + ", TechnologyName=" + TechnologyName + ", TechnologyType=" + TechnologyType
+				+ ", Technologyduration=" + Technologyduration + ", tracks=" + tracks + "]";
 	}
+
+	
 	
 	
 

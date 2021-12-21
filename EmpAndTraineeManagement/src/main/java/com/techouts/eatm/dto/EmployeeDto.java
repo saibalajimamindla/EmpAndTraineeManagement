@@ -1,11 +1,8 @@
 package com.techouts.eatm.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.springframework.stereotype.Component;
-
-import com.techouts.eatm.model.TrainingTrack;
 
 @Component
 public class EmployeeDto implements Serializable {

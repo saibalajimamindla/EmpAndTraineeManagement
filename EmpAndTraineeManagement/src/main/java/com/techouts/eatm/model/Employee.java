@@ -20,7 +20,7 @@ public class Employee  {
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Column(name ="emp_id")
+	@Column(name ="emp_id",unique = true)
 	private long empId;
 	
 	@Column(unique = true,name = "emp_name")

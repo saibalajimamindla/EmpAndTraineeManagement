@@ -1,5 +1,7 @@
 package com.techouts.eatm.Dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +22,10 @@ public interface TechnologyDao extends JpaRepository<Technology, Long> {
 	@Query(value = "DELETE FROM technologies t WHERE t.technology_name =?1" ,nativeQuery = true)
 	@Transactional
 	public void removeByName(String name);
+	
+	
+	@Query(value = "select * from technologies where technology_type=?1" ,nativeQuery = true)
+	@Transactional
+	public List<Technology> findBytype(String name);
 
 }

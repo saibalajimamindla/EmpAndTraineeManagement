@@ -33,6 +33,9 @@ public class TrainingTrack  {
 	@Column(unique = true,name = "track_name")
 	private String trackName;
 	
+	@Column(name = "track_duration")
+	private String trackDuration;
+	
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinTable(name = "techtrack_tech" ,
 	joinColumns = {@JoinColumn(name="techtrack_id")},

@@ -1,14 +1,9 @@
 package com.techouts.eatm.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +18,6 @@ import com.techouts.eatm.Dao.EmployeeDao;
 import com.techouts.eatm.Dao.TrainingTrackDao;
 import com.techouts.eatm.dto.EmployeeDto;
 import com.techouts.eatm.model.Employee;
-import com.techouts.eatm.model.Technology;
-import com.techouts.eatm.model.TrainingTrack;
 import com.techouts.eatm.service.EmployeeService;
 
 @RestController
@@ -39,6 +32,12 @@ public class EmployeeController {
 
 	@Autowired
 	TrainingTrackDao trainingTrackDao;
+	
+	@GetMapping("/add")
+	public EmployeeDto getDto()
+	{
+		return new EmployeeDto();
+	}
 
 	@PostMapping("/add")
 	@ResponseBody
@@ -99,6 +98,12 @@ public class EmployeeController {
 	@DeleteMapping("/{id}")
 	public void removeEmployee(@PathVariable Long id) {
 		employeeService.removeEmployee(id);
+	}
+	@PostMapping("/update/{id}")
+	public EmployeeDto updateEmployee(@PathVariable Long id)  {
+		employeeService.updateEmployee(id);
+		return null;
+
 	}
 
 	@PutMapping("/update")

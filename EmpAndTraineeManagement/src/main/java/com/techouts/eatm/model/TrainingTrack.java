@@ -24,7 +24,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "training_tracks")
-public class TrainingTrack implements Serializable {
+public class TrainingTrack  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.techouts.eatm.Dao.EmployeeDao;
 import com.techouts.eatm.Dao.TrainingTrackDao;
+import com.techouts.eatm.converter.EmployeeConvertor;
 import com.techouts.eatm.dto.EmployeeDto;
 import com.techouts.eatm.model.Employee;
 import com.techouts.eatm.model.TrainingTrack;
@@ -27,6 +28,9 @@ public class EmployeeService {
 
 	@Autowired
 	TrainingTrackDao trainingTrackDao;
+	
+	@Autowired
+	EmployeeConvertor employeeConvertor;
 
 	public void saveEmployee(EmployeeDto dto) {
 		if (employeeDao.getByName(dto.getEmpName()) == null) {
@@ -64,6 +68,15 @@ public class EmployeeService {
 			employeeDao.deleteById(Empid);
 		}
 
+	}
+	
+	public EmployeeDto updateEmployee(long id) {
+		Employee employee = employeeDao.getByid(id);
+		if (employee != null) {
+			
+			return employeeConvertor.modelToDto(employee);
+		}
+		return null;
 	}
 
 	public void updateEmployee(EmployeeDto dto) {

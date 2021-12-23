@@ -15,15 +15,16 @@
 			<h2 style="color: navy; font-family: sans-serif;">Register Here</h2>
 			<table align="center">
 				<tr>
-
-					<td><form:input path="techId" placeholder="Id" /></td>
+					<td><form:input path="techName" placeholder="NameOfTheTechnology" /></td>
 				</tr>
 				<tr>
 
-					<td><form:input path="techName" placeholder="TechnologyName" /></td>
+					<td><form:input path="techType" placeholder="TechnologyType" /></td>
+				</tr><tr>
+
+					<td><form:input path="techDuration" placeholder="TechnologyDuration" /></td>
 				</tr>
 				<tr>
-
 					<td><form:input type="submit" value="Submit" /></td>
 				</tr>
 			</table>

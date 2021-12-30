@@ -22,7 +22,7 @@ input {
 <div style="text-align: center; padding-bottom: 20px; background-color: #ffe6e6; padding-top: 15px;">
 <form:form action="login" method="get"><!-- we can use @RequestParam annotation to get email and password to valid if not using security --> 
 			<h2 style="color: navy; font-family: sans-serif;">Login</h2>
-			<table>
+			<table style="text-align: center;">
 				<tr>
 					<td><input type="email" placeholder="EmailID" /></td>
 				</tr>

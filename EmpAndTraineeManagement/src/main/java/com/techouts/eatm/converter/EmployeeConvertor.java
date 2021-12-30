@@ -25,7 +25,7 @@ public class EmployeeConvertor {
 	
 	public List<EmployeeDto> modelListToDtoList(List<Employee>  emplList)
 	{
-		List<EmployeeDto> dtolist = new ArrayList<EmployeeDto>();
+		List<EmployeeDto> dtolist = new ArrayList<>();
 		
 		for(Employee employee:emplList)
 		{
@@ -38,7 +38,7 @@ public class EmployeeConvertor {
 			dtolist.add(dto);
 			
 		}
-		return null;
+		return dtolist;
 		
 	}
 	

@@ -1,8 +1,6 @@
 package com.techouts.eatm.model;
 
-import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,45 +13,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-
 
 @Entity
 @Table(name = "training_tracks")
-public class TrainingTrack  {
+public class TrainingTrack {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	@Column(unique = true,name = "track_name")
+
+	@Column(unique = true, name = "track_name")
 	private String trackName;
-	
+
 	@Column(name = "track_duration")
-	private String trackDuration;
-	
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinTable(name = "techtrack_tech" ,
-	joinColumns = {@JoinColumn(name="techtrack_id")},
-	inverseJoinColumns = {@JoinColumn(name="tech_id")})
+	private long trackDuration;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "techtrack_tech", joinColumns = { @JoinColumn(name = "techtrack_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "tech_id") })
 	private Set<Technology> technologies = new HashSet<>();
 
 	public TrainingTrack() {
 		super();
 	}
-	
 
-	
 	public TrainingTrack(String trackName) {
 		super();
 		this.trackName = trackName;
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -79,19 +67,18 @@ public class TrainingTrack  {
 		this.technologies = technologies;
 	}
 
+	public long getTrackDuration() {
+		return trackDuration;
+	}
 
+	public void setTrackDuration(long trackDuration) {
+		this.trackDuration = trackDuration;
+	}
 
 	@Override
 	public String toString() {
-		return "TrainingTrack [id=" + id + ", trackName=" + trackName + ", technologies=" + technologies + "]";
+		return "TrainingTrack [id=" + id + ", trackName=" + trackName + ", trackDuration=" + trackDuration
+				+ ", technologies=" + technologies + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

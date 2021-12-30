@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.techouts.eatm.Dao.EmployeeDao;
-import com.techouts.eatm.Dao.TrainingTrackDao;
 import com.techouts.eatm.converter.EmployeeConvertor;
+import com.techouts.eatm.dao.EmployeeDao;
+import com.techouts.eatm.dao.TrainingTrackDao;
 import com.techouts.eatm.dto.EmployeeDto;
 import com.techouts.eatm.model.Employee;
 import com.techouts.eatm.model.TrainingTrack;
@@ -28,12 +28,13 @@ public class EmployeeService {
 
 	@Autowired
 	TrainingTrackDao trainingTrackDao;
-	
+
 	@Autowired
 	EmployeeConvertor employeeConvertor;
 
-	public void saveEmployee(EmployeeDto dto) {
-		if (employeeDao.getByName(dto.getEmpName()) == null) {
+	public EmployeeDto saveEmployee(EmployeeDto dto) {
+		Employee checkEmployee = employeeDao.getById(dto.getEmpId());
+		if (checkEmployee == null) {
 			Employee employee = new Employee();
 			employee.setEmpId(dto.getEmpId());
 			employee.setEmpName(dto.getEmpName());
@@ -49,41 +50,14 @@ public class EmployeeService {
 			}
 			employee.setDateOfJoining(date);
 			if (dto.getTrainingTrack() != null) {
-				employee.setTrainingTrack(trainingTrackDao.getByName(dto.getTrainingTrack()));
+				employee.setTrainingTrack(trainingTrackDao.findByName(dto.getTrainingTrack()));
 			} else {
-				employee.setTrainingTrack(trainingTrackDao.getByName("default"));
+				employee.setTrainingTrack(trainingTrackDao.findByName("default"));
 			}
 
-			employeeDao.save(employee);
-		}
-
-	}
-
-	public void removeEmployee(Long id) {
-		Employee employee = employeeDao.getByid(id);
-		if (employee != null) {
-			Long Empid = employee.getEmpId();
-			employee.setTrainingTrack(null);
-			employeeDao.save(employee);
-			employeeDao.deleteById(Empid);
-		}
-
-	}
-	
-	public EmployeeDto updateEmployee(long id) {
-		Employee employee = employeeDao.getByid(id);
-		if (employee != null) {
-			
-			return employeeConvertor.modelToDto(employee);
-		}
-		return null;
-	}
-
-	public void updateEmployee(EmployeeDto dto) {
-		Employee employee = employeeDao.getByid(dto.getEmpId());
-		if (employee != null) {
-			employee.setEmpId(dto.getEmpId());
-			employee.setEmpName(dto.getEmpName());
+			return employeeConvertor.modelToDto(employeeDao.save(employee));
+		} else {
+			checkEmployee.setEmpName(dto.getEmpName());
 			String pattern = "MM/dd/yyyy";
 			SimpleDateFormat format = new SimpleDateFormat(pattern);
 			Date date = null;
@@ -94,34 +68,63 @@ public class EmployeeService {
 				e.printStackTrace();
 				logger.info("parse exception in employee date of joining");
 			}
-			employee.setDateOfJoining(date);
-			employee.setTrainingTrack(trainingTrackDao.getByName(dto.getTrainingTrack()));
-			employeeDao.save(employee);
+			checkEmployee.setDateOfJoining(date);
+			checkEmployee.setTrainingTrack(trainingTrackDao.findByName(dto.getTrainingTrack()));
+
+			return employeeConvertor.modelToDto(employeeDao.save(checkEmployee));
 		}
+
 	}
 
-	public Employee getEmployeeById(Long id) {
-		return employeeDao.getByid(id);
+	public String removeEmployee(Long id) {
+		Employee employee = employeeDao.getById(id);
+		if (employee != null) {
+			employee.setTrainingTrack(null);
+			Employee emp =	employeeDao.save(employee);
+			employeeDao.delete(emp);
+			
+			return employee.getEmpName()+" with "+employee.getEmpId()+" removed successfully";
+		}
+		else {
+			return "Employee not found";
+		}
+
 	}
 
-	public Employee getEmployeeByName(String name) {
-		return employeeDao.getByName(name);
+	public EmployeeDto getEmployeeById(Long id) {
+		Employee employee = employeeDao.getById(id);
+		if (employee != null) {
+
+			return employeeConvertor.modelToDto(employee);
+		} else {
+			return null;
+		}
+
 	}
 
-	public List<Employee> getAllEmployees() {
-		return employeeDao.findAll();
+	public EmployeeDto getEmployeeByName(String name) {
+		Employee employee = employeeDao.getByName(name);
+		if (employee != null) {
+
+			return employeeConvertor.modelToDto(employee);
+		} else {
+			return null;
+		}
+
 	}
 
-	public List<Employee> getAllEmployeesByTrack(String track) {
-		TrainingTrack trainingTrack = trainingTrackDao.getByName(track);
-		System.out.println(trainingTrack);
+	public List<EmployeeDto> getAllEmployees() {
+		return employeeConvertor.modelListToDtoList(employeeDao.findAll());
+	}
+
+	public List<EmployeeDto> getAllEmployeesByTrack(String track) {
+		TrainingTrack trainingTrack = trainingTrackDao.findByName(track);
 		List<Employee> employeesList = null;
 		if (trainingTrack != null) {
 
 			employeesList = employeeDao.getByTrack(trainingTrack.getId());
 		}
-		System.out.println(employeesList);
-		return employeesList;
+		return employeeConvertor.modelListToDtoList(employeesList);
 	}
 
 }

@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeDto implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private long empId;
 	
 	private String empName;

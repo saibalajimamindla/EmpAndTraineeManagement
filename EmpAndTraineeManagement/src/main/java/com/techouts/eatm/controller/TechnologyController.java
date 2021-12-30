@@ -3,21 +3,17 @@ package com.techouts.eatm.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techouts.eatm.dto.TechnologyDto;
-import com.techouts.eatm.model.Technology;
 import com.techouts.eatm.service.TechnologyService;
 
 @RestController
@@ -38,23 +34,22 @@ public class TechnologyController {
 	
 	@PostMapping("/add")
 	@ResponseBody
-	public String addTechnology(@ModelAttribute TechnologyDto technologyDto)
+	public TechnologyDto addTechnology(@ModelAttribute TechnologyDto technologyDto)
 	{
-		System.out.println(technologyDto.toString());
 		return technologyService.addTechnologytoDatabase(technologyDto);
 	}
 	
-	@GetMapping("/update/{name}")
+	@PutMapping("/{name}")
 	public TechnologyDto updateTechnology(@PathVariable String name)
 	{
 		return technologyService.getBytechnologyName(name);
 	}
 	
 	
-	@DeleteMapping("/remove/{name}")
-	public void removeTechnology(@PathVariable String name)
+	@DeleteMapping("/{name}")
+	public String removeTechnology(@PathVariable String name)
 	{
-		technologyService.removeTechnologyfromDatabase(name);
+		return technologyService.removeTechnologyfromDatabase(name);
 	}
 	
 	@GetMapping("/all")
@@ -68,6 +63,8 @@ public class TechnologyController {
 	{
 		return technologyService.getTechnologiesByType(type);
 	}
+	
+
 	
 
 }

@@ -19,20 +19,19 @@ public class Technology {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	@Column(unique = true,name = "technology_name")
-	private String TechnologyName;
-	
+
+	@Column(unique = true, name = "technology_name")
+	private String technologyName;
+
 	@Column(name = "technology_type")
-	private String TechnologyType;
-	
+	private String technologyType;
+
 	@Column(name = "technology_duration")
-	private long Technologyduration;
-	
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "technologies")
+	private long technologyduration;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "technologies")
 	private Set<TrainingTrack> tracks = new HashSet<>();
-	
-	
+
 	public Technology() {
 		super();
 	}
@@ -46,11 +45,11 @@ public class Technology {
 	}
 
 	public String getTechnologyName() {
-		return TechnologyName;
+		return technologyName;
 	}
 
 	public void setTechnologyName(String technologyName) {
-		TechnologyName = technologyName;
+		this.technologyName = technologyName;
 	}
 
 	public Set<TrainingTrack> getTracks() {
@@ -62,29 +61,27 @@ public class Technology {
 	}
 
 	public String getTechnologyType() {
-		return TechnologyType;
+		return technologyType;
 	}
 
 	public void setTechnologyType(String technologyType) {
-		TechnologyType = technologyType;
+		this.technologyType = technologyType;
 	}
 
 	public long getTechnologyduration() {
-		return Technologyduration;
+		return technologyduration;
 	}
 
 	public void setTechnologyduration(long technologyduration) {
-		Technologyduration = technologyduration;
+		this.technologyduration = technologyduration;
 	}
 
 	@Override
 	public String toString() {
-		return "Technology [id=" + id + ", TechnologyName=" + TechnologyName + ", TechnologyType=" + TechnologyType
-				+ ", Technologyduration=" + Technologyduration + ", tracks=" + tracks + "]";
+		return "Technology [id=" + id + ", technologyName=" + technologyName + ", technologyType=" + technologyType
+				+ ", technologyduration=" + technologyduration + ", tracks=" + tracks + "]";
 	}
 
-	
-	
 	
 
 }

@@ -1,7 +1,6 @@
-package com.techouts.eatm.Dao;
+package com.techouts.eatm.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -21,7 +20,7 @@ public interface EmployeeDao extends JpaRepository<Employee, Long> {
 	
 	@Query(value = "select * from employees where emp_id =?1" ,nativeQuery = true)
 	@Transactional
-	public Employee getByid(Long id);
+	public Employee getById(Long id);
 	
 	@Query(value = "select * from employees where track_id =?1" ,nativeQuery = true)
 	@Transactional

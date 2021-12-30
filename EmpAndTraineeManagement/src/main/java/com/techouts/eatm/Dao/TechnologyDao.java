@@ -1,4 +1,4 @@
-package com.techouts.eatm.Dao;
+package com.techouts.eatm.dao;
 
 import java.util.List;
 
